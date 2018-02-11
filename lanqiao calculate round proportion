@@ -1,0 +1,25 @@
+import java.util.Scanner;
+
+public class Main {
+
+	private static double π = 3.14159265358979323;
+	
+	public static void main(String[] args) {
+		
+		
+		int radius;
+		double proportion;
+		
+		Scanner in = new Scanner(System.in);
+		
+		radius = in.nextInt();
+		if(radius<=10000&&radius>=1) {
+			
+			proportion = π*radius*radius;
+			System.out.printf("%.7f\n",proportion);
+		}else {
+			System.out.println("beyond bound");
+		}
+		
+	}
+}
