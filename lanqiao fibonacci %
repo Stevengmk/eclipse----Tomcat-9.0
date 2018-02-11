@@ -35,3 +35,18 @@ public class Main {
 	
 
 }
+
+
+//if(fn<10007) {
+//System.out.println(fn);
+//}else {
+//int j=1;
+//while(true) {
+//	if(j*10007>=fn) {
+//		System.out.println(fn-10007*(j-1));
+//		break;
+//	}else {
+//		j++;
+//	}
+//}
+//}
