@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		int n=0;
+		int fn=0;
+		int fn1=1;
+		int fn2=1;
+		Scanner in = new Scanner(System.in);
+		n = in.nextInt();
+		if(n==1||n==2) {
+			System.out.println(1);
+		}
+		if(n>=3&&n<=1000000) 
+		{
+		int i = 3;
+			while(i<=n)
+			{
+			fn = fn1%10007+fn2%10007;
+			fn1 = fn2;
+			fn2 = fn;
+			i++;
+			}
+		
+
+			System.out.println(fn%10007);
+
+		}
+
+		
+	}
+	
+
+}
