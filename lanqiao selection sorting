@@ -1,0 +1,53 @@
+import java.util.Scanner;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		int n=0;
+		n = in.nextInt();
+		int a[] = new int[n];
+		for(int i=0;i<n;i++)
+			a[i] = in.nextInt();
+		selectionSort(a);
+		for(int i=0;i<n;i++) {
+			
+			System.out.print(a[i]);
+			System.out.print(" ");
+		}
+	}
+	
+	public static void selectionSort(int a[]) {
+		
+		
+		for(int j=0;j<a.length;j++) {
+			
+			int min = a[j];
+			int flag = j;
+			for(int i=j+1;i<a.length;i++) {
+				if(a[i]<min) {
+					flag = i;
+					min = a[i];
+				}
+			}
+			//swap(a[flag],a[j]);
+			int tempt;
+			tempt = a[flag];
+			a[flag] = a[j];
+			a[j] = tempt;
+
+		}
+		
+	}
+	
+	
+//	public static void swap(int a,int b) {
+//		
+//		int tempt;
+//		tempt = a;
+//		a = b;
+//		b = tempt; 
+//	}
+}
+		
