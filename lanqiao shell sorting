@@ -22,20 +22,20 @@ public class Main {
 	
 	public static void shellSort(int a[]) {
 		
-		for(int increment=a.length/2;increment>0;increment/=2) {
+		for(int increment=a.length/2;increment>0;increment/=2) {//increment代表增量，不再用k表示
 			
 			for(int j=0;j<increment;j++) {
 				
 				int k=0;
-				for(int i=increment+j;i<a.length;i=k+increment) {
+				for(int i=increment+j;i<a.length;i=k+increment) {//进入本组下一个数字的比较
 				
 					int insertion = a[i];
-					k=i;
+					k=i;//k作为临时的变量来保存最后一个比较的位置，留着下一次比较时用
 					while((i-increment)>=0&&a[i-increment]>insertion) {
 						a[i] = a[i-increment];
 						i=i-increment;
 					}
-					//a[i+increment] = insertion;
+					//a[i+increment] = insertion;其他人的写法，但实际上按照我这里的逻辑是会发生数组溢出的
 					a[i] = insertion;
 				}
 			}
