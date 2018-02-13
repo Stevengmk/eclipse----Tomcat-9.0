@@ -1,0 +1,67 @@
+import java.util.Scanner;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		int n=0;
+		n = in.nextInt();
+		int a[] = new int[n];
+		for(int i=0;i<n;i++)
+			a[i] = in.nextInt();
+		quickSort(a,0,a.length-1);
+		for(int i=0;i<n;i++) {
+			
+			System.out.print(a[i]);
+			System.out.print(" ");
+		}
+	}
+	
+	public static void quickSort(int a[],int start,int end) {
+		
+		if(start>end)
+			return;//解决溢出问题
+		
+		int standard = a[start];
+		int i=start;
+		int j = end;
+		//原来写的是i=start+1;  其实是一样的
+		//原先写的是i=0;  完全错误
+		
+//		if(start>end)
+//			return;
+		
+		while(i!=j) {
+			
+		
+			while(a[j]>=standard&&j>i) {
+			
+				j--;
+			}
+		
+			//i = start;  如果该句在这写，不在前面写，那就会陷入死循环，重点。
+			while(a[i]<=standard&&i<j) {
+			
+				i++;
+			}
+		
+			if(i<j) {
+				int tempt = a[i];
+				a[i] = a[j];
+				a[j] = tempt;
+			}
+
+		}
+		
+		a[start] = a[i];
+		a[i] = standard;//很重要
+		
+		quickSort(a,start,i-1);
+		quickSort(a,i+1,end);//数组下标溢出
+	}
+	
+	
+
+}
+		
