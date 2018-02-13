@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		int n=0;
+		n = in.nextInt();
+		int a[] = new int[n];
+		for(int i=0;i<n;i++)
+			a[i] = in.nextInt();
+		bubbleSort(a);
+		for(int i=0;i<n;i++) {
+			
+			System.out.print(a[i]);
+			System.out.print(" ");
+		}
+	}
+	
+	public static void bubbleSort(int a[]) {
+		
+		for(int i=0;i<a.length;i++) {
+			
+			for(int j=0;j<a.length-1-i;j++) {//从前到后排序，大的放在后面，直到排到第二个为止
+				
+				if(a[j]>a[j+1]) {//每个都交换，原先写的是for(int j=i;j<a.length;j++)，逻辑是不符合冒泡的逻辑的
+				
+					int tempt = a[j];
+					a[j] = a[j+1];
+					a[j+1] = tempt;
+				}
+			}
+		}
+		
+		
+	}
+	
+	
+	
+	
+}
