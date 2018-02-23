@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		
+		Scanner scanner = new Scanner(System.in);
+		int n = scanner.nextInt();
+		int [][]a = new int[n][n];//原先写的是int[n][];
+		
+		for(int i=0;i<n;i++) {
+			
+			if(i==0) {
+				a[0][0] = 1;
+				System.out.print(a[0][0]);//原先写的是println，最后输出的格式不对
+			}else {
+				int j=0;
+				while(j<=i) {//原先用的是for，循环，后来发现输出的不是下三角，应该把原先条件j<n改为小于i
+					if(j==0) {
+						a[i][j] = 1;
+						System.out.print(a[i][j]);
+						System.out.print(" ");
+					}else {
+						a[i][j] = a[i-1][j-1]+a[i-1][j];
+						System.out.print(a[i][j]);
+						System.out.print(" ");
+					}
+					j++;
+				}
+			}
+			System.out.println();
+		}
+//		int k=0;//这段代码是用来只输出最后一行的
+//		for(k=0;k<n;k++) {
+//			
+//			System.out.print(a[n-1][k]);//此处原来写的是a[n][k]，后来总是报错，ArrayIndexOutOfBoundsException(),唉，难受
+//			//System.out.println(100);
+//			System.out.print(" ");
+//		}
+	
+	}
+
+}
+
