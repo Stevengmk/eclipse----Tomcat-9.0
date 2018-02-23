@@ -1,0 +1,22 @@
+public class Main {
+	
+	public static void main(String[] args) {
+		
+		for(int i=100;i<1000;i++) {
+			
+			int j=0;
+			int sum=0;
+			int tempt=0;
+			while(j<3) {
+				tempt = Integer.valueOf(String.valueOf(i).charAt(j))-48;//原来这里没有减48，导致tempt,sum非常大，最后结果没有显示
+				j++;
+				sum +=tempt*tempt*tempt;//立方表示
+			}
+			if(sum==i) {
+				System.out.println(sum);
+			}
+		}
+	
+	}
+
+}
