@@ -1,0 +1,37 @@
+public class Test008 {  
+      
+    private static int counter = 0;  
+      
+    public static void main(String[] args) {  
+        int[] a = new int[5];  
+          
+        f(a, 0, 0);  
+        f(a, 0, 1);  
+          
+        System.out.println(counter);  
+    }  
+      
+    //a数组用来记录深度搜索暂时排列组合，index指向数组的下标，x是index指向的元素可能的取值  
+    private static void f(int[] a, int index, int x){  
+        a[index] = x;  
+          
+        if(index == 4){  
+            System.out.println(p(a));  
+            counter++;  
+            return;  
+        }  
+          
+        f(a, index+1, 0);  
+        f(a, index+1, 1);  
+    }  
+      
+    //将a数组变成字符串  
+    private static String p(int[] a){  
+        StringBuffer sb = new StringBuffer();  
+        for (int i = 0; i < a.length; i++) {  
+            int j = a[i];  
+            sb.append(j);  
+        }  
+        return sb.toString();  
+    }  
+}  
