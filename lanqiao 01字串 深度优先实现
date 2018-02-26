@@ -1,4 +1,4 @@
-public class Test008 {  
+public class Main {  
       
     private static int counter = 0;  
       
