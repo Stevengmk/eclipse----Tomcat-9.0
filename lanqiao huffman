@@ -1,0 +1,32 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		int n = in.nextInt();
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for(int i=0;i<n;i++) {
+			list.add(in.nextInt());
+		}
+		int sum=0;
+		for(int j=0;j<n;j++) {
+			if(list.size()==1) {//判断这步很重要，没有的话就也会报错,indexoutofboundsexception()，因为如果不进行判断的话，接下来remove两个就会出错
+				System.out.println(sum);
+				break;
+			}
+			Collections.sort(list);//从小到大排列
+			int tempt = list.get(0)+list.get(1);
+			list.remove(0);
+			list.remove(0);//原先写的是remove(1)，报错indexoutofboundsexception()
+			sum +=tempt;
+			list.add(tempt);
+		}
+		
+	}
+	
+	
+}
