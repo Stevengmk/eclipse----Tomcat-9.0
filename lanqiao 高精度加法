@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		int a[] = new int[100];
+		int b[] = new int[100];
+		String as = in.next();
+		String bs = in.next();
+		for(int k1=0;k1<as.length();k1++) {//字符串转换成数字的方法
+			a[k1] = as.charAt(as.length()-k1-1)-'0';
+		}
+		for(int k2=0;k2<bs.length();k2++) {
+			b[k2] = bs.charAt(bs.length()-k2-1)-'0';
+		}
+		int c[] = new int[101];
+		int remainder = 0;
+		int carry = 0;
+		for(int i=0;i<a.length;i++) {//原先的混乱逻辑
+			remainder = (a[i]+b[i]+carry)%10;
+			//remainder = (a[i]+b[i])%10;
+			c[i] = remainder;
+			//c[i] = remainder+carry;
+			//carry = (a[i]+b[i])/10;
+			carry = (a[i]+b[i]+carry)/10;
+		}
+		boolean begin=false;//原先出个大错误，输出数据是反的，应该是从高位往低位输数字
+        for(int j=c.length-1;j>=0;j--) {  
+            if(begin) {  
+                System.out.print(c[j]);  
+                continue;  
+            }  
+            if(c[j-1]!=0)  
+                begin=true;  
+        } 
+		
+	}
+	
+	
+}
