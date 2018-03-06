@@ -1,0 +1,132 @@
+import java.util.Scanner;
+
+public class Main {
+	
+	private static int count=0;
+	
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		int n = in.nextInt();
+		int arr[][] = new int[n][n];
+		for(int j=0;j<arr.length;j++) {
+			for(int i=0;i<arr.length;i++) {
+				arr[j][i] = in.nextInt();
+			}
+			//System.out.println();
+		}
+		
+		placew(arr,0,n);
+		
+		
+		System.out.println(count);
+		
+	}
+	
+	public static void placew(int [][] arr,int column,int size) {
+		
+		if(column==size) {
+			placeb(arr,0,size);
+			
+		}else{
+			int row=0;
+			while(row<size) {
+				if(check(arr,row,column,3)) {
+					row++;
+				}else {
+					set(arr,row,column,3);
+					placew(arr,column+1,size);
+					remove(arr,row,column);
+					row++;
+				}
+			}
+		}
+		
+	}
+	
+	
+	
+public static void placeb(int [][] arr,int column,int size) {
+		
+		if(column==size) {
+			
+			count++;
+		}else{
+			int row=0;
+			while(row<size) {
+				if(check(arr,row,column,2)) {
+					row++;
+				}else {
+					set(arr,row,column,2);
+					placeb(arr,column+1,size);
+					remove(arr,row,column);
+					row++;
+				}
+			}
+		}
+		
+	}
+
+
+	
+public static boolean check(int [][] arr,int row,int column,int type) {
+	
+	if(arr[row][column] != 1) {
+        return true;
+    }
+
+    /*2.判断左上角*/
+    for( int i=row-1,j=column-1; i>=0 && j>=0; i--,j--) {
+        if(arr[i][j] == type) {
+            return true;
+        }
+    }
+
+    /*3.判断左下角*/
+    for( int i=row-1,j=column+1; i>=0 && j<arr.length; i--,j++) {
+        if(arr[i][j] == type) {
+            return true;
+        }
+    }
+
+    /*4.判断右上角*/
+    for( int i=row+1,j=column-1; i<arr.length&& j>=0; i++,j--) {
+        if(arr[i][j] == type) {
+            return true;
+        }
+    }
+
+    /*5.判断右下角*/
+    for( int i=row+1,j=column+1; i<arr.length && j<arr.length; i++,j++) {
+        if(arr[i][j] == type) {
+            return true;
+        }
+    }
+
+    /*6.同一列*/
+    for(int j=0;j<arr.length;j++) {
+        if(arr[row][j] == type) {
+            return true;
+        }
+    }
+
+    /*7.同一行*/
+    for(int i=0;i<arr.length;i++) {
+        if(arr[i][column] == type) {
+            return true;
+        }
+    }
+	return false;
+}
+
+public static void set(int [][] arr,int row,int column,int type) {
+	
+	arr[row][column] = type;
+}
+
+public static void remove(int [][] arr,int row,int column) {
+	
+	arr[row][column] = 1;
+}
+	
+}
