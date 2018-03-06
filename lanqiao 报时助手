@@ -1,0 +1,116 @@
+import java.util.Scanner;
+
+public class Main {
+	
+	
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		int h = in.nextInt();
+		int m = in.nextInt();
+		StringBuilder s = new StringBuilder();
+		if(h>=0&&h<24&&m>=0&&m<60) {
+			
+			if(h>20) {
+				s.append("twenty ");
+				char second = String.valueOf(h).charAt(1);
+				s.append(ch(second));
+			}else{
+				s.append(str(String.valueOf(h)));
+			}
+			
+			
+			//System.out.println(String.valueOf(m));
+		
+			if(String.valueOf(m).equals("0")) {//此处原先有错误，拿String与char比较了
+			//后来改成==，也是不对（报错indexoutof……，因为不经过这个，直接经过最后一个else），因为两个string一定不相等，必须用equals比较内容才行
+				s.append(" o'clock");
+				
+			}else if(m>0&&m<=20||m==30||m==40||m==50) {
+			
+				s.append(" "+str(String.valueOf(m)));
+				
+			}else {
+			
+				char first = String.valueOf(m).charAt(0);
+				//System.out.println(first);
+				if(first=='2') {//原先写的是ch(first).equals('2')
+					s.append(" twenty");
+				}else if(first=='3') {
+					s.append(" thirty");
+				}else if(first=='4') {
+					s.append(" forty");
+				}else {
+					s.append(" fifty");
+				}
+				char seconds = String.valueOf(m).charAt(1);//此处在整点的情况下会报错，因为只有1位
+				
+				s.append(" "+ch(seconds));
+			}
+		
+		
+		}
+		
+		System.out.println(s);
+	}
+	
+	public static String str(String c) {
+		
+		String s=null;
+		switch(c) {
+		case "0": s="zero";  break;
+		case "1": s="one";   break;
+		case "2": s="two";  break;
+		case "3": s="three";break;
+		case "4": s="four";break;
+		case "5": s="five";break;
+		case "6": s="six";break;
+		case "7": s="seven";break;
+		case "8": s="eight";break;
+		case "9": s="nine";break;
+		case "10": s="ten";break;
+		case "11": s="eleven";break;
+		case "12": s="twelve";break;
+		case "13": s="thirteen";break;
+		case "14": s="fourteen";break;
+		case "15": s="fifteen";break;
+		case "16": s="sixteen";break;
+		case "17": s="seventeen";break;
+		case "18": s="eighteen";break;
+		case "19": s="nineteen";break;
+		case "20": s="twenty";break;
+		case "30": s="thirty";break;
+		case "40": s="forty";break;
+		case "50": s="fifty";break;
+		
+		}
+		return s;
+		
+	}
+	
+	
+	public static String ch(char c) {
+		
+		String s=null;
+		switch(c) {
+		
+		case '1': s="one";   break;
+		case '2': s="two";  break;
+		case '3': s="three";break;
+		case '4': s="four";break;
+		case '5': s="five";break;
+		case '6': s="six";break;
+		case '7': s="seven";break;
+		case '8': s="eight";break;
+		case '9': s="nine";break;
+		
+		
+		}
+		return s;
+		
+	}
+		
+		
+
+
+}
