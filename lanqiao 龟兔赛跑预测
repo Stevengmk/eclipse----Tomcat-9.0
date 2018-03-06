@@ -1,0 +1,48 @@
+import java.util.Scanner;
+
+public class Main {
+	
+	
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		int v1,v2,t,s,l;
+		v1 = in.nextInt();
+		v2 = in.nextInt();
+		t = in.nextInt();
+		s = in.nextInt();
+		l = in.nextInt();
+		
+		int l1=0;
+		int l2=0;
+		int time=0;
+		while(l1<l&&l2<l) {
+			l1+=v1;
+			l2+=v2;
+			time++;
+			if(l2>=l) {
+				if(l1==l2) {
+					System.out.println("D");
+					System.out.println(time);
+					break;
+				}
+				System.out.println("T");
+				System.out.println(time);
+				break;
+			}
+			if(l1>=l) {
+				System.out.println("R");
+				System.out.println(time);
+				break;
+			}
+			
+			
+			if(l1-l2>=t) {//原先t和s搞反了，所以结果总是  T  4
+				l1-=s*v1;
+			}
+		}
+		
+	}
+	
+
+}
