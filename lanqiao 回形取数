@@ -1,0 +1,80 @@
+
+import java.util.Scanner;
+
+public class Main {
+	
+	
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		int row = in.nextInt();
+		int column = in.nextInt();
+		int arr[][] = new int[row][column];
+		for(int i=0;i<row;i++) {
+			for(int j=0;j<column;j++) {
+				arr[i][j] = in.nextInt();
+			}
+		}
+		
+		int r=0;
+		int c=0;
+		while(true) {
+			
+		while(r<row) {
+			if(arr[r][c]!=-1) {
+				
+			System.out.print(arr[r][c]+" ");
+			arr[r][c] = -1;
+			r++;
+			}else {
+				break;
+			}
+			
+		}
+		r--;
+		c++;
+		while(c<column) {
+			
+			if(arr[r][c]!=-1) {//此处总是在报错，数组溢出，原因就是上一个r++完事之后没有返回，接下来r就等于row了，超过范围了
+				
+			System.out.print(arr[r][c]+" ");
+			arr[r][c] = -1;
+			c++;
+			}else {
+				break;
+			}
+			
+		}
+		c--;//原来这些都是写在内层循环里面的，不对
+		r--;
+		while(r>=0) {
+			
+			if(arr[r][c]!=-1) {
+				
+			System.out.print(arr[r][c]+" ");
+			arr[r][c] = -1;
+			r--;//只有打印输出了，才进行下一个，否则不动
+			}else {
+				break;
+			}
+		}
+		r++;//这些代表返回，进入下一个方向
+		c--;
+		while(c>=0) {
+			
+			if(arr[r][c]!=-1) {
+				
+			System.out.print(arr[r][c]+" ");
+			arr[r][c] = -1;
+			c--;
+			}else {
+				break;
+			}
+		}
+		c++;//返回
+		r++;
+		}
+	}
+	
+
+}
