@@ -1,0 +1,20 @@
+public static void rank(Scanner sc){
+		int count = sc.nextInt();
+		String winname = "",losename = "";
+		Iterator it;
+		Map<String,String> win = new HashMap<String,String>();
+		Map<String,String> lose = new HashMap<String,String>();
+		while(count > 0){
+			winname = sc.next();
+			losename = sc.next();
+			win.put(winname, winname);
+			lose.put(losename, losename);
+			count--;
+		}
+		it = lose.entrySet().iterator();
+		while(it.hasNext()){
+			Entry en = (Entry) it.next();
+			win.remove(lose.get(en.getKey()));
+		}
+		println(win.size() == 1 ? "Yes" : "No");
+	}
