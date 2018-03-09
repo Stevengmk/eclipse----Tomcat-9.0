@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+
+		while(in.hasNext()) {
+			int n1 = in.nextInt();
+			if(n1==0)
+				break;
+			int n2 = change(n1,10);
+			int n3 = change(n1,12);
+			int n4 = change(n1,16);
+			if(n2==n3&&n3==n4) {
+				System.out.println(n1+" is a Sky Number.");
+				
+			}else {
+				System.out.println(n1+" is not a Sky Number.");
+			}
+			
+		}
+		
+	}
+	
+	
+	public static int change(int i,int j) {
+		
+		int a = i%j;
+		int b = i/j%j;
+		int c = i/j/j%j;
+		int d = i/j/j/j%j;
+		return a+b+c+d;
+	}
+
+}
