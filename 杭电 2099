@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+public class Main {
+	
+	
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		
+		int index=0;
+
+		while(in.hasNext()) {
+			int n1 = in.nextInt();
+			int n2 = in.nextInt();
+
+			if(n1==0&&n2==0) {
+
+				break;
+			}else {
+
+				int i=0;
+				boolean flag = true;//原来这句话写到循环里面去了，就错了
+				while(i<100) {
+					int result = n1*100;
+					result +=i;
+					
+					if(result%n2==0&&flag) {
+						System.out.print(String.format("%02d", i));//原来这里打印输出的格式不对，0没有补全为00
+						flag = false;
+					}else if(result%n2==0&&!flag){
+						System.out.print(" ");
+						
+						System.out.print(String.format("%02d", i));
+					}else {
+						
+					}
+//					else {
+//						a[index] = -1;
+//					}
+					i++;
+					//System.out.println(100);
+				}
+//				for(int j=0;j<a.length;j++) {//这么打印输出符合的两位数就麻烦了，根本不用记录到数组里
+//					
+//					if(a[j]!=-1)
+//					System.out.print(a[j]+" ");
+//				}
+				System.out.println();
+			}
+		}
+		
+	}
+	
+
+}
