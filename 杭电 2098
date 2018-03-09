@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+public class Main {
+	
+	
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+
+		while(in.hasNext()) {
+			int n1 = in.nextInt();
+			if(n1==0) {
+				break;
+			}
+			int count=0;//原来count写在外面，就错了
+			for(int i=2;i<n1-i;i++) {
+				if(sushu(i)&&sushu(n1-i)) {//这就从if嵌套换成了这句话能够节省平均50ms，但是不稳
+					
+					count++;
+				}
+			}
+			System.out.println(count);
+		}
+		
+	}
+	
+	
+	public static boolean sushu(int i) {//判断是否为素数
+		
+		boolean flag = false;
+		for(int j=2;j<=Math.sqrt(i);j++) {
+			if(i%j==0) {
+				flag = true;
+				break;//原来没有break,时而超时，时而不超时，加上了break就稳了
+			}
+		}
+		if(flag)
+			return false;
+		else
+			return true;
+	}
+	
+
+}
