@@ -1,0 +1,48 @@
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		
+		int set = in.nextInt();
+		ArrayList<Integer> ans = new ArrayList<Integer>();	
+		for(int j=0;j<set;j++) {
+		
+			ArrayList<Integer> list = new ArrayList<Integer>();	
+			int num = in.nextInt();
+			for(int i=1;i<=num;i++) {
+				list.add(in.nextInt());
+			}
+		Collections.sort(list);
+		int count=0;
+		int tempt=0;
+			for(int dis:list) {
+				count++;
+				if(count==(num+1)/2) {//原来写的是num+1/2
+					tempt = dis;
+					break;
+				}
+			}
+		int sum=0;
+		//System.out.println(tempt);
+		Iterator it = list.iterator();
+		while(it.hasNext()) {//原来写的是if(it.hasNext())
+			sum+=Math.abs((int)it.next()-tempt);
+			
+		}
+		ans.add(sum);//原来写在循环里面了
+		//System.out.println(sum);
+		
+		}
+		for(int as:ans) {
+			System.out.println(as);
+		}
+	
+	}
+}
