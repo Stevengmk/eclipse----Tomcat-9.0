@@ -1,0 +1,40 @@
+import java.util.Scanner;
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		
+		int set = in.nextInt();
+		for(int i=0;i<set;i++) {
+			
+			int x1=in.nextInt();
+			int y1=in.nextInt();
+			int x2=in.nextInt();
+			int y2=in.nextInt();
+			double dis=0;
+			if(x1+y1>x2+y2) {
+				dis+=Math.sqrt(2*x1*x1)+Math.sqrt(2*y2*y2);
+				for(int j=x2+y2;j<x1+y1;j++) {
+					dis+=Math.sqrt(j*j+(j+1)*(j+1));
+				}
+				for(int k=x2+y2+1;k<x1+y1;k++) {
+					dis+=Math.sqrt(2*k*k);
+				}
+			}else if(x1+y1<x2+y2) {
+				dis+=Math.sqrt(2*x2*x2)+Math.sqrt(2*y1*y1);
+				for(int j=x1+y1;j<x2+y2;j++) {
+					dis+=Math.sqrt(j*j+(j+1)*(j+1));
+				}
+				for(int k=x1+y1+1;k<x2+y2;k++) {
+					dis+=Math.sqrt(2*k*k);
+				}
+			}else {//第二次加上就AC了
+				dis+=Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+			}
+			System.out.printf("%.3f",dis);
+			System.out.println();//注意题目要求，保留三位小数
+		}
+	
+	}
+}
