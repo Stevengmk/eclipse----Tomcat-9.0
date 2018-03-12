@@ -1,0 +1,49 @@
+import java.util.Scanner;
+public class Main {
+
+	private static int count;
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		
+		int set = in.nextInt();
+		int num[] = new int[set];
+		
+		for(int i=0;i<set;i++) {
+			
+			num[i] = in.nextInt();
+		}
+		int len = num.length;
+		permutation(num,0,len);
+	//System.out.println(count);
+	}
+	
+	
+	public static void permutation(int num[],int start,int len) {
+		
+		if(start==len-1) {//找到一种排列情况
+			//count++;
+			for(int k=0;k<len;k++) {
+				System.out.print(num[k]+" ");
+			}
+			System.out.println();
+		}
+		for(int i=start;i<len;i++) {
+			
+			if(i==start||num[i]!=num[start]) {//两个数一样的前提下就不发生交换
+				swap(num,i,start);
+				permutation(num,start+1,len);//递归
+				swap(num,i,start);//换回来
+			}
+			
+		}
+	}
+	
+	
+	public static void swap(int num[],int i,int j) {
+		
+		int tempt = num[i];
+		num[i] = num[j];
+		num[j] = tempt;
+	}
+}
