@@ -1,0 +1,61 @@
+/**
+ * 问题描述
+ *　　在一条直线上有n堆石子，每堆有一定的数量，每次可以将两堆相邻的石子合并，合并后放在两堆的中间位置，合并的费用为两堆石子的总数。求把所有石子合并成一堆的最小花费。
+ *输入格式
+ *　　输入第一行包含一个整数n，表示石子的堆数。
+ *　　接下来一行，包含n个整数，按顺序给出每堆石子的大小 。
+ *输出格式
+ *　　输出一个整数，表示合并的最小花费。
+ *样例输入
+ *5
+ *1 2 3 4 5
+ *样例输出
+ *33
+ *数据规模和约定
+ *　　1<=n<=1000, 每堆石子至少1颗，最多10000颗。
+ * 
+ * 思路：，动态规划区间dp问题
+ * 从区间长度为2开始，直到整个区间满，从0一直到n-1	所有可能的区间全都算出最少的合并数目
+ * 每次都根据前面算出的最少数目算后面的最少数目。
+ * 但是计算最短比较的时候要加上sum，也就是每次合并都要加上合并的区间的所有石子堆之和
+ * 
+ * 网上的代码思路与代码展示的都不一样，我不太懂为什么，1和0的问题，或者是changdu和changdu-1的问题
+ * 我都和他们不一样
+ *其他的错误都在注释中
+ */
+
+
+
+import java.util.Scanner;
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		int changdu = in.nextInt();
+		int sum[] = new int[changdu];
+		int dp[][] = new int[1010][1010];
+		
+		for (int i = 0; i < sum.length; i++) {
+			if(i==0)
+			sum[i]=in.nextInt();
+			else
+			sum[i]=sum[i-1]+in.nextInt();
+		}
+		
+		for(int len=2;len<=changdu;len++) {//原先写的是len<changdu
+			for(int m=0;m<sum.length-len+1;m++) {//原先写的是m<=sum.length-len+1
+				int n=m+len-1;
+				int min = Integer.MAX_VALUE;
+				for(int q=m;q<n;q++) {//原先写的是q<a.length
+					if(min>dp[m][q]+dp[q+1][n]+sum[n]-(m==0?0:sum[m-1])) {
+						min = dp[m][q]+dp[q+1][n]+sum[n]-(m==0?0:sum[m-1]);
+					}
+				}
+				dp[m][n] = min;
+			}
+		}
+		System.out.println(dp[0][changdu-1]);//原先写的是dp[1][changdu],dp[1][cahngdu-1]，都不对
+	}
+	
+}
