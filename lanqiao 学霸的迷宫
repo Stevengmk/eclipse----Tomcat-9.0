@@ -1,0 +1,106 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main {
+	 
+	
+	static boolean [][] visit;
+	static int [][] matrix;
+	
+	
+	public static void main(String[] args) {
+ 
+		Scanner in = new Scanner(System.in);
+		int n = in.nextInt();//行数
+		int m = in.nextInt();//列数
+		int matrix[][] = new int[n][m];
+		boolean visit[][] = new boolean[n][m];
+		
+		for(int i=0;i<n;i++) {
+			
+			String s = in.next();
+			for(int j=0;j<m;j++) {
+				matrix[i][j] = (s.charAt(j)-'0');//原先这里写的是Integer.parseInt(s.valueOf(J)),这是不对的，打印输出的不是字符串的内容，而是0，1，2
+			}
+		}
+		
+		BFS(0,0,n,m,visit,matrix);
+		in.close();
+	}
+	
+	
+	public static void BFS(int x,int y,int row,int column,boolean visit[][],int matrix[][]) {
+		
+		Queue<Point> q = new LinkedList<Point>();//原先写的是new Queue<Point>(),是不对的。 Queue是一个接口，不能直接创建一个对象。
+		q.add(new Point(x,y,null,' '));//此处的方向设置为空格？
+		visit[x][y] = true;
+		while(!q.isEmpty()) {//广度遍历
+			Point p = q.poll();
+			x = p.x;
+			y = p.y;
+			if(x==row-1&&y==column-1) {//当到达终点时，打印出路线
+				 int step = 0;  
+	             StringBuilder sb = new StringBuilder();
+	             sb.insert(0, p.dir);
+	             while(p.before!= null){
+	            	 step++;
+	                 sb.insert(0,p.before.dir);
+	                 p = p.before;
+	             }
+	             System.out.println(step);  
+	             System.out.println(sb.toString().trim());
+	             //System.out.println(sb.toString().trim());
+	             break;
+			}
+			
+			if(x+1<row&&matrix[x+1][y]==0&&!visit[x+1][y]) {//后面的if,原先写的是else if，思路是不对的，因为是广度遍历。是并列的If
+				
+				q.add(new Point(x+1,y,p,'D'));
+				visit[x+1][y] = true;
+
+			}
+			
+			if(x-1>=0&&matrix[x-1][y]==0&&!visit[x-1][y]) {
+
+				q.add(new Point(x-1,y,p,'L'));
+				visit[x-1][y] = true;
+
+			}
+			if(y+1<column&&matrix[x][y+1]==0&&!visit[x][y+1]) {
+
+				q.add(new Point(x,y+1,p,'R'));
+				visit[x][y+1] = true;
+
+			}
+			if(y-1>=0&&matrix[x][y-1]==0&&!visit[x][y-1]) {
+
+				q.add(new Point(x,y-1,p,'U'));
+				visit[x][y-1] = true;
+
+			}
+		}
+		
+	}
+	
+}
+	
+
+class Point{
+		
+		int x;
+		int y;
+		Point before;
+		char dir;
+		
+		Point(int x,int y,Point before,char c){
+			this.x = x;
+			this.y = y;
+			this.before = before;
+			dir = c;
+		}
+		
+}
+	
+	
+ 
