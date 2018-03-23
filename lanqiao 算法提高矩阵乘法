@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class Main {
+	
+	private static int dp[][];
+	private static int a[];
+	
+	public static void main(String[] args) {
+ 
+		Scanner in = new Scanner(System.in);
+		int n = in.nextInt();
+		long dp[][] = new long[n+2][n+2];
+		int a[] = new int[n+2];//特意把a数组扩大了，所以接下来的长度不能使用a.length
+		
+		for(int i=0;i<=n;i++) {
+			a[i] = in.nextInt();
+		}
+		
+		for(int len=2;len<=n;len++) {//len<=n，原先写的是len<=a.length
+			for(int i=0;i<n-len+1;i++) {//原来写的是i<n-len+1,i=1或者i<=n-len+1,i=1
+				int j=i+len-1;
+				dp[i][j] = Integer.MAX_VALUE;
+				for(int k=i;k<j;k++) {
+					dp[i][j] = min(dp[i][j],a[i]*a[k+1]*a[j+1]+dp[i][k]+dp[k+1][j]);
+				}
+			}
+		}
+		
+		System.out.println(dp[0][n-1]);//原先写的是dp[1][n],dp[0][n]
+		
+	}
+	
+	
+	public static long min(long a,long b) {
+		return a>b?b:a;
+	}
+	
+	
+	
+	
+}
+	
+	
