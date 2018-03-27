@@ -1,0 +1,72 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main{
+	
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		int n=in.nextInt();
+		int m=in.nextInt();
+		int graph[][] = new int[n][n];
+		int dis[] = new int[n];
+		int count[] = new int[n];
+		boolean used[] = new boolean[n];
+		for(int i=0;i<n;i++) {//原来的话graph数组没有初始化，所以对后来spfa算法里if的判断条件造成了影响
+			for(int j=0;j<n;j++) {
+				graph[i][j] = Integer.MAX_VALUE;
+			}
+		}
+		for(int i=0;i<n;i++) {
+			
+			int r=in.nextInt();
+			int c=in.nextInt();
+			graph[r-1][c-1] = in.nextInt();
+			
+		}
+		
+		for(int i=0;i<n;i++) {
+			dis[i] = i==0?0:Integer.MAX_VALUE;
+		}
+		
+		spfa(dis,graph,used,count);
+	}
+	
+	public static void spfa(int dis[],int graph[][],boolean used[],int count[]) {
+		
+		Queue<Integer> q= new LinkedList<Integer>();
+		q.add(0);
+		used[0] = true;
+		count[0]++;
+		int tempt=0;
+		while(!q.isEmpty()) {
+			
+			//System.out.println(100);
+			int head = q.peek();//原来q.poll()及Used[head]=false是在这里的，给挪到后面去了
+			for(int i=0;i<dis.length;i++) {
+				if(i!=head&&graph[head][i]!=Integer.MAX_VALUE) {
+						dis[i] = dis[i]>dis[head]+graph[head][i]?dis[head]+graph[head][i]:dis[i];
+						
+						if(!used[i]) {//原来上面的dis[i]=……是在if条件里面，逻辑好像有些问题
+							used[i] = true;
+							q.add(i);
+							count[i]++;
+							tempt=i;
+						}
+				}
+			}
+			if(count[tempt]>dis.length) {//添加的判断条件
+				break;
+			}
+			q.poll();
+			used[head] = false;
+		}
+		for(int k=1;k<dis.length;k++) {
+			
+			System.out.println(dis[k]);
+		}
+		
+		
+	}
+}
