@@ -25,8 +25,9 @@ public class Main {
 				}
 			}
 		}
-		
+		in.close();
 		System.out.println(dp[0][n-1]);//原先写的是dp[1][n],dp[0][n]
+		//因为dp[0][n-1]代表从0到n-1相乘，a[j+1]就是代表第n-1个矩阵的列。所以不能是n
 		
 	}
 	
