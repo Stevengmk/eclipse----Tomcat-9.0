@@ -1,0 +1,72 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main{
+
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		
+		//int dis[] = new int[n];floyd算法不是单源最短路径的，所以不需要dis[]数组，我原先不理解
+		while(in.hasNext()) {
+			
+			int n=in.nextInt();//*
+			int m=in.nextInt();//*
+			int graph[][] = new int[n][n];//*原来*号的这三行在while循环外面，是不对的，每次循环必须都是新的graph矩阵
+			for(int i=0;i<n;i++) {//原来的话graph数组没有初始化，所以对后来spfa算法里if的判断条件造成了影响
+				for(int j=0;j<n;j++) {
+					if(i==j) {
+						graph[i][j] =0;
+					}else {
+						graph[i][j] = Integer.MAX_VALUE;
+					}
+					
+				}
+			}
+		
+		
+		for(int i=0;i<m;i++) {//原先写的是i<n
+			
+			int r=in.nextInt();
+			int c=in.nextInt();
+			int value = in.nextInt();
+			if(value<graph[r][c])//这里总是会出现ArrayIndexOutOfBoundsException()
+			graph[r][c] = graph[c][r]= value;//原先这里没写对称也相等
+			
+		}
+			int start=in.nextInt();
+			int end = in.nextInt();
+		
+//		for(int i=0;i<n;i++) {
+//			dis[i] = i==start?0:Integer.MAX_VALUE;
+//		}
+		
+			System.out.println(floyd(start,end,graph));
+		}
+		in.close();//如果把in.close()加在循环里面的话，就会报错，因为循环判断条件需要，in.hasNext()
+	}
+	
+	public static int floyd(int start,int end,int graph[][]) {
+		
+		for(int t=0;t<graph.length;t++) {
+			for(int q=0;q<graph.length;q++) {
+				for(int z=0;z<graph.length;z++) {
+					if(graph[q][t]!=Integer.MAX_VALUE&&graph[t][z]!=Integer.MAX_VALUE&&graph[q][z]>graph[q][t]+graph[t][z]) {//这里原先的判断条件没有graph!=MAX,就会出现错误解
+						graph[q][z]=graph[q][t]+graph[t][z];
+					}
+					
+				}
+			}
+		}
+		
+		if(graph[start][end]==Integer.MAX_VALUE) {
+				return -1;
+		}else {//原先没加判断条件所以总是执行else
+				return graph[start][end];
+		}
+	
+	}
+	
+}
+	
