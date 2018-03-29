@@ -1,0 +1,98 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main{
+
+	static final int infinity=100000;
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+
+		while(in.hasNext()) {
+			
+			int n=in.nextInt();
+			int m=in.nextInt();
+			
+			int dis[] = new int[n];
+			boolean used[] = new boolean[n];
+			
+			int graph[][] = new int[n][n];
+			for(int i=0;i<n;i++) {
+				for(int j=0;j<n;j++) {
+					if(i==j) {
+						graph[i][j] =0;
+					}else {
+						graph[i][j] = infinity;
+					}
+					
+				}
+			}
+		
+		
+			for(int i=0;i<m;i++) {
+			
+				int r=in.nextInt();
+				int c=in.nextInt();
+				int value = in.nextInt();
+				if(value<graph[r][c])
+					graph[r][c] = graph[c][r]= value;
+			
+			}
+			int start=in.nextInt();
+			int end = in.nextInt();
+		
+			for(int i=0;i<n;i++) {
+				dis[i] = i==start?0:infinity;
+			}
+		
+			Bellman_Ford(dis,graph,used,end,start);
+		}
+		
+		in.close();
+	
+	}
+
+	
+	public static void Bellman_Ford(int dis[],int graph[][],boolean used[],int end,int start) {
+		
+		dis[start]=0;
+    
+		for(int count=1;count<=dis.length-1;count++) {
+			
+			for(int k=0;k<graph.length;k++) {
+			
+				for(int i=0;i<graph.length;i++) {
+					if(graph[k][i]!=infinity) {
+						if(dis[i]>dis[k]+graph[k][i]) {
+							dis[i]=dis[k]+graph[k][i];
+						}
+					}
+				}
+		
+			}
+		}
+		
+		
+		//还少了对于负权回路的判断,下面补充上了		
+		for(int i=0;i<dis.length;i++) {
+			for(int j=0;j<dis.length;j++) {
+				if(graph[i][j]!=infinity) {
+					if(dis[j]>dis[i]+graph[i][j]) {
+						System.out.println("存在负环");
+					}
+				}
+			}
+		}
+
+		if(dis[end]!=infinity) {
+			
+			System.out.println(dis[end]);
+		}else {
+			
+			System.out.println(-1);
+		}
+	}
+	
+}
