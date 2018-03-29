@@ -1,0 +1,98 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main{
+
+	static final int infinity=100000;
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+
+		while(in.hasNext()) {
+			
+			int n=in.nextInt();//原来这些输入都在循环外面，是不对的
+			int m=in.nextInt();
+			
+			int dis[] = new int[n];
+			//int count[] = new int[n];
+			boolean used[] = new boolean[n];
+			
+			int graph[][] = new int[n][n];
+			for(int i=0;i<n;i++) {//原来的话graph数组没有初始化，所以对后来spfa算法里if的判断条件造成了影响
+				for(int j=0;j<n;j++) {
+//					if(i==j) {
+//						graph[i][j] =0;
+//					}else {
+						graph[i][j] = infinity;
+					//}
+					
+				}
+			}
+		
+		
+			for(int i=0;i<m;i++) {//原先写的是i<n
+			
+				int r=in.nextInt();
+				int c=in.nextInt();
+				int value = in.nextInt();
+				if(value<graph[r][c])//这里总是会出现ArrayIndexOutOfBoundsException
+					graph[r][c] = graph[c][r]= value;//原先这里没写对称也相等
+			
+			}
+			int start=in.nextInt();
+			int end = in.nextInt();
+		
+			for(int i=0;i<n;i++) {
+				dis[i] = i==start?0:infinity;
+			}
+			//System.out.println(dis[start]);
+		
+			dijkstra(dis,graph,used,end,start);
+		}
+		
+		in.close();
+	
+	}
+	
+
+	
+	public static void dijkstra(int dis[],int graph[][],boolean used[],int end,int start) {
+		
+		dis[start]=0;
+		
+		for(int k=1;k<dis.length;k++) {//原来写的是while(!used[end]),但是这种情况下当路线不存在的时候就一直循环下去不能够退出
+		
+		int min=infinity;
+		int tempt=0;
+		for(int i=0;i<dis.length;i++) {
+			if(!used[i]&&min>dis[i]) {
+				min=dis[i];
+				tempt=i;
+			}
+		}
+		used[tempt] = true;
+		
+		for(int i=0;i<dis.length;i++) {
+			
+			if(graph[tempt][i]<infinity) {
+				if(!used[i]&&dis[i]>dis[tempt]+graph[i][tempt]) {
+					dis[i]=dis[tempt]+graph[i][tempt];
+				}
+			}
+		}
+		
+
+		}
+			
+		if(dis[end]!=infinity) {//原来此处写的是if(!flag)
+			
+			System.out.println(dis[end]);
+		}else {
+			
+			System.out.println(-1);
+		}
+	}
+	
+}
