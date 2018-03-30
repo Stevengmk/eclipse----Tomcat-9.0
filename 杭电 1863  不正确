@@ -1,0 +1,130 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+
+public class Main{
+
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		
+		//int dis[] = new int[n];//floyd算法不是单源最短路径的，所以不需要dis[]数组，我原先不理解
+		while(in.hasNext()) {
+			
+			int road=in.nextInt();
+			int village=in.nextInt();
+			if(road==0) {
+				break;
+			}
+			int graph[][] = new int[village][village];//*原来*号的这三行在while循环外面，是不对的，每次循环必须都是新的graph矩阵
+			boolean used[] = new boolean[village];
+			boolean roadused[][] = new boolean[village][village];
+			for(int i=0;i<village;i++) {
+				for(int j=0;j<village;j++) {
+					if(i==j) {
+						graph[i][j] =0;
+						roadused[i][j] =true;
+					}else {
+						graph[i][j] = Integer.MAX_VALUE;
+						roadused[i][j] = false;
+					}
+					
+				}
+			}
+			
+			for(int i=0;i<used.length;i++) {
+				used[i]=false;
+			}
+		
+		
+			for(int i=0;i<road;i++) {
+			
+				int r=in.nextInt();
+				int c=in.nextInt();
+				int value = in.nextInt();
+
+					if(value<graph[r-1][c-1])
+						graph[r-1][c-1] = graph[c-1][r-1] =value;
+			
+			}
+			int edgecount=0;
+//			for(int i=0;i<graph.length;i++) {
+//				for(int j=0;j<graph.length;j++) {
+//					if(graph[i][j]!=Integer.MAX_VALUE) {
+//						edgecount++;
+//					}
+//				}
+//			}
+
+			prim(graph,used,edgecount,roadused);
+		
+		}
+		
+		in.close();
+		
+	}
+	
+	public static void prim(int graph[][],boolean used[],int edgecount,boolean roadused[][]) {
+		
+		int count=0;//用于记录加入的点的数量
+		ArrayList<Integer> list=new ArrayList<Integer>();
+		int start=0;//默认把0首先加入Vnew集合
+		int sum=0;
+		list.add(0);
+		used[0]=true;//原来没写这句
+		while(list.size()!=graph.length) {
+
+			int tempts=0;
+			int tempti=0;
+			int min=Integer.MAX_VALUE;
+			Iterator it = list.iterator();
+			while(it.hasNext()) {
+				
+				start=(int)it.next();
+				System.out.println(start);
+				for(int i=0;i<graph.length;i++) {//默认从0开始
+
+					if(!used[i]&&!roadused[start][i]&&graph[start][i]!=Integer.MAX_VALUE) {
+
+						//if(!used[i]&&!roadused[start][i]&&graph[start][i]!=Integer.MAX_VALUE&&!notin(i,list)) {
+						if(min>graph[start][i]) {
+							min=graph[start][i];
+							tempts=start;
+							tempti=i;
+						}
+					}
+				}
+				
+			}
+				roadused[tempts][tempti]=true;
+				sum+=graph[tempts][tempti];
+				list.add(tempti);
+				count++;//原来没写这句
+				System.out.println(count);
+				used[tempti]=true;
+			
+		}
+		if(count==used.length) {
+			
+			System.out.println(sum);
+		}else {
+			System.out.println("?");
+		}
+	}
+	
+//	public static boolean notin(int i,ArrayList<Integer> list) {
+//		
+//		Iterator it=list.iterator();
+//		while(it.hasNext()) {
+//			if((int)it.next()==i) {
+//				return true;
+//			}
+//		}
+//		
+//		return false;
+//	}
+	
+}
