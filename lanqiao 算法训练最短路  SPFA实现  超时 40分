@@ -27,7 +27,7 @@ public class Main{
 		}
 		
 		for(int i=0;i<n;i++) {
-			dis[i] = i==0?0:Integer.MAX_VALUE;规定起点是0
+			dis[i] = i==0?0:Integer.MAX_VALUE;//规定起点是0
 		}
 		
 		spfa(dis,graph,used,count);
