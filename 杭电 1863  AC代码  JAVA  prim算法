@@ -1,0 +1,145 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+
+public class Main{
+
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+
+		while(in.hasNext()) {
+			
+			int road=in.nextInt();
+			int village=in.nextInt();
+			int start=0;
+			if(road==0) {
+				break;
+			}
+			int graph[][] = new int[village][village];
+			boolean used[] = new boolean[village];//是否加入Vnew集合
+			int dis[] = new int[village];//集合V中每个点（不在Vnew中）到Vnew集合的距离
+			for(int i=0;i<village;i++) {
+				for(int j=0;j<village;j++) {
+					if(i==j) {
+						graph[i][j] =0;
+					}else {
+						graph[i][j] = Integer.MAX_VALUE;
+					}
+					
+				}
+			}
+			
+			for(int i=0;i<used.length;i++) {
+				used[i]=false;
+			}
+			
+		
+		
+			for(int i=0;i<road;i++) {
+			
+				int r=in.nextInt();
+				if(i==0) {//设置初始点为刚输入的第一条路始点
+					start=r;
+				}
+				int c=in.nextInt();
+				int value = in.nextInt();
+
+					if(value<graph[r-1][c-1])
+						graph[r-1][c-1] = graph[c-1][r-1] =value;
+			
+			}
+			
+			
+
+			for(int i=0;i<used.length;i++) {
+				//if(graph[start-1][i]!=Integer.MAX_VALUE) {//原先加上这个条件后，不存在边的点（连接不上的），dis数组的值自动被赋为0，影响后面的结果
+					dis[i]= i==start-1?0:graph[start-1][i];
+				//}
+			}//原来这个赋值，在前一个循环的后面，导致dis[i]全部为0，然后导致结果为0
+
+			prim(graph,used,dis,start);
+		
+		}
+		
+		in.close();
+		
+	}
+	
+	public static void prim(int graph[][],boolean used[],int dis[],int start) {
+		
+		//int count=0;//用于记录加入的点的数量
+		//ArrayList<Integer> list=new ArrayList<Integer>();//原来想凭借这个条件判断是否找到最小生成树，后来发现不会判断
+		//int start=0;
+		int sum=0;
+		//list.add(start-1);//原来写的是add(0),但是有的数据0没有路，所以要写满足所有情况的代码
+		used[start-1]=true;//原来没写这句
+		for(int k=0;k<dis.length-1;k++) {//原先默认以0为起点，然后这个循环起始值都设为1，现在看来是不对的
+
+			int tempt=-1;//原来这个变量声明在循环外面，但是现在明白了tempt作用是每次循环记录找到的点的值然后加入Vnew集合，如果没找到那就不能找到最小生成树，所以是-1，然后就可以判断了
+			int min=Integer.MAX_VALUE;
+			for(int j=0;j<dis.length;j++) {//原先默认以0为起点，然后这个循环起始值都设为1，现在看来是不对的，而且改成0之后，必须加上=号
+				
+				
+				if(!used[j]&&dis[j]<min) {//原先这里所有写的都是k，结果第一组测试数据居然还是对的
+					min=dis[j];
+					tempt=j;
+				}
+			}
+			
+			if(tempt==-1) {//原来写的是used.length，现在看来是不对的，因为只加入了n-1个点,不对，一开始加入了始点，所以还是n个
+				
+				System.out.println("?");
+				return;
+			}//原来这个判断的条件写在，最后松弛的那个循环后面，后来发现怎么判断都不对，移到sum+=dis[tempt]后面也是不对，最后参考网上hoj里面discuss的代码写的
+			
+			
+			
+			//if(!notin(tempt,list)) {
+			sum+=dis[tempt];
+			//System.out.println(tempt);
+			//System.out.println(100);
+			//list.add(tempt);
+			dis[tempt]=0;
+			used[tempt]=true;
+
+			//}
+			
+				
+		
+		for(int i=0;i<used.length;i++) {//原来写的是i=1开始	
+			
+			if(!used[i]&&dis[i]>graph[tempt][i]) {
+				dis[i]=graph[tempt][i];
+			}
+		}
+
+
+		}
+
+		
+//		if(tempt==-1) {//原来写的是list.size()==used.length，现在看来是不对的，因为只加入了n-1个点,不对，一开始加入了始点，所以还是n个
+//			
+//			System.out.println("?");
+//		}else {
+			//System.out.println(list.size());
+			System.out.println(sum);
+		//}
+	}
+	
+//	public static boolean notin(int i,ArrayList<Integer> list) {
+//		
+//		Iterator it=list.iterator();
+//		while(it.hasNext()) {
+//			if((int)it.next()==i) {
+//				return true;
+//			}
+//		}
+//		
+//		return false;
+//	}
+
+}
