@@ -49,12 +49,78 @@ public class Main{
 	
 	public static int floyd(int start,int end,int graph[][]) {
 		
+		for(int t=0;t<graph.length;tpackage lanqiao;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main{
+
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		
+		//int dis[] = new int[n];floyd算法不是单源最短路径的，所以不需要dis[]数组，我原先不理解
+		while(in.hasNext()) {
+			
+			int n=in.nextInt();//*
+			int m=in.nextInt();//*
+			int graph[][] = new int[n][n];//*原来*号的这三行在while循环外面，是不对的，每次循环必须都是新的graph矩阵
+			for(int i=0;i<n;i++) {
+				for(int j=0;j<n;j++) {
+					if(i==j) {
+						graph[i][j] =0;
+					}else {
+						graph[i][j] = Integer.MAX_VALUE;
+					}
+					
+				}
+			}
+		
+		
+		for(int i=0;i<m;i++) {
+			
+			int r=in.nextInt();
+			int c=in.nextInt();
+			int value = in.nextInt();
+			if(value<graph[r-1][c-1])//这里总是会出现ArrayIndexOutOfBoundsException()
+			graph[r-1][c-1] = value;//原先这里写了对称，不符合题意，因为是有向图
+			
+		}
+
+		floyd(graph);//原先直接把调用floyd方法的那一行注释掉了，结果没发现，以为是卡在死循环里了，可事实上不可能，因为graoh.length只有3，不可能卡死在里面。
+			//System.out.println(floyd(graph));
+		}
+		in.close();
+	}
+	
+	public static void floyd(int graph[][]) {
+		
 		for(int t=0;t<graph.length;t++) {
 			for(int q=0;q<graph.length;q++) {
 				for(int z=0;z<graph.length;z++) {
 					if(graph[q][t]!=Integer.MAX_VALUE&&graph[t][z]!=Integer.MAX_VALUE&&graph[q][z]>graph[q][t]+graph[t][z]) {//这里原先的判断条件没有graph!=MAX,就会出现错误解
 						graph[q][z]=graph[q][t]+graph[t][z];
+						//System.out.println(200);
 					}
+					
+				}
+			}
+		}
+		
+		for(int i=1;i<graph.length;i++) {
+			//System.out.println(100);
+			if(graph[0][i]!=Integer.MAX_VALUE){
+				
+				System.out.println(graph[0][i]);
+			}
+				
+			
+		}
+	
+	}
+	
+}
 					
 				}
 			}
